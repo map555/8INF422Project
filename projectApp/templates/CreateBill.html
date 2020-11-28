@@ -1,0 +1,31 @@
+{% extends "Create.html" %}
+{% load static %}
+
+{% block titleValue %}Create a bill{% endblock %}
+
+{% block formID %}bill_form{% endblock %}
+
+{% block form %}
+    {% load widget_tweaks %}
+
+        {%   render_field billform.buyerName class+="form-text"  %}
+        {{ billform.buyerName.errors  }}
+         {%   render_field billform.carId class+="form-text"  %}
+        {{ billform.carId.errors  }}
+
+
+
+{% endblock %}
+
+{% block submitButtonID %}send_form_button {% endblock %}
+
+{% block scriptBlock %}
+
+    <script src="{% static 'js/CreateBill.js' %}">
+
+
+
+    </script>
+{% endblock %}
+
+

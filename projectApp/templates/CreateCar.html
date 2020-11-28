@@ -1,0 +1,54 @@
+{% extends "Create.html" %}
+
+{% block titleValue %}Create Car{% endblock %}
+{% block formID %}car_form{% endblock %}
+
+
+{% block form %}
+
+    <label for="car_maker">Maker:</label>
+    <input type="text" class="form-text"name="car_maker" id="car_maker" maxlength="25">
+    <br>
+
+    <label for="car_model">Model:</label>
+    <input type="text" class="form-text" name="car_model" id="car_model" maxlength="25">
+    <br>
+
+    <label for="car_trim">Trim:</label>
+    <input type="text" class="form-text" name="car_trim" id="car_trim" maxlength="50">
+    <br>
+
+    <label for="car_color">Color:</label>
+    <input type="text" class="form-text" name="car_color" id="car_color" maxlength="25">
+    <br>
+
+    <label for="car_year">Year:</label>
+    <input type="number" class="form-text" name="car_year" id="car_year" maxlength="4">
+    <br>
+
+    <label for="car_mileage">Mileage:</label>
+    <input type="number" class="form-text" name="car_mileage" id="car_mileage" maxlength="7">
+    <br>
+
+    <label for="car_condition">Condition (1 to 10):</label>
+    <input type="number" class="form-text" name="car_condition" id="car_condition" maxlength="2" min="1" max="10">
+    <br>
+
+    <label for="car_weight">Weight:</label>
+    <input type="number" class="form-text" name="car_weight" id="car_weight" maxlength="5" min="1" >
+    <br>
+
+    <label for="car_price">Price:</label>
+    <input type="number" class="form-text" name="car_price" id="car_price" maxlength="9" min="1">
+    <br>
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+{% endblock %}
+
+{% block submitButtonID %}send_car_form{% endblock %}
+
+{% block script %}
+            <script src="{{ url_for('static', filename='CreateCar.js') }}"></script>
+
+{% endblock %}
