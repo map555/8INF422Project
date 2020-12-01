@@ -16,6 +16,54 @@ def home():
 
     return render_template('Home.html')
 
+@app.route('/bill/billbyid')
+def BillByIDView():
+    return render_template('SelectBillByID.html')
+
+@app.route('/ajax/get_bill_info_by_id', methods=['GET'])
+def BillByIDRequest():
+    car_info = {
+                'billID': "NULL",
+                'buyerName': "NULL",
+                'maker': "NULL",
+                'model': "NULL",
+                'cartrim': "NULL",
+                'mileage': "NULL",
+                'caryear': "NULL",
+                'carweight': "NULL",
+                'condition': "NULL",
+                'carcolor': "NULL",
+                'price': "NULL"
+                }
+    if request.method=='GET':
+        billID=request.values.get("bill_id")
+        print(billID)
+
+        requestBill=Bill.query.filter_by(id=billID).first()
+        print(requestBill.clientName)
+
+        requestCar = Car.query.filter_by(id=requestBill.carId).first()
+
+
+        if requestBill!=None:
+            bill_info={
+                    'billID': billID,
+                    'buyerName': requestBill.clientName,
+                    'maker':requestCar.maker,
+                    'model':requestCar.model,
+                    'cartrim':requestCar.trim,
+                    'mileage':requestCar.mileage,
+                    'caryear':requestCar.year,
+                    'carweight':requestCar.weight,
+                    'condition':requestCar.condition,
+                    'carcolor':requestCar.color,
+                    'price':requestCar.price
+                    }
+
+
+        bill_info = {'bill_info': bill_info}
+
+        return bill_info
 
 #Car by ID page
 @app.route('/car/carbyid')
