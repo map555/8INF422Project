@@ -1,19 +1,20 @@
 {% extends "Create.html" %}
-{% load static %}
 
 {% block titleValue %}Create a bill{% endblock %}
 
 {% block formID %}bill_form{% endblock %}
 
 {% block form %}
-    {% load widget_tweaks %}
 
-        {%   render_field billform.buyerName class+="form-text"  %}
-        {{ billform.buyerName.errors  }}
-         {%   render_field billform.carId class+="form-text"  %}
-        {{ billform.carId.errors  }}
+        <label for="buyerName">Buyer name:</label>
+        <input type="text" class="form-text" name="buyerName" id="buyerName" maxlength="50">
+        <br>
 
+        <label for="carId">Car ID:</label>
+        <input type="number" class="form-text" name="carId" id="carId">
+        <br>
 
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
 {% endblock %}
 
@@ -21,7 +22,7 @@
 
 {% block scriptBlock %}
 
-    <script src="{% static 'js/CreateBill.js' %}">
+    <script src="{{url_for('static', filename='js/CreateBill.js') }}">
 
 
 

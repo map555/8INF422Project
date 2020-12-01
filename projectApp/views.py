@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 csrf=CSRFProtect()
 csrf.init_app(app)
-from projectApp.models import Car
+from projectApp.models import Car, Bill
 from projectApp.models import db
 @app.route('/')
 def home():
@@ -82,6 +82,20 @@ def CreateCar():
     else:
         return render_template('CreateCar.html')
 
+@app.route('/bill/create', methods=['GET', 'POST'])
+def CreateBill():
+    if request.method == 'POST':
+        billForm = request.form
+
+        newBill = Bill(billForm['buyerName'], billForm['carId'])
+        db.session.add(newBill)
+        soldCar = Car.query.filter_by(id=newBill.carId).first()
+        soldCar.sold = True
+        db.session.commit()
+        flash('Bill added')
+        return ('', 204)
+    else :
+        return render_template('CreateBill.html')
 
 #Cars by maker view
 @app.route('/car/carsbymaker',methods=['GET'])
