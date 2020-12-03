@@ -1,0 +1,35 @@
+{% extends "SelectByName.html" %}
+{% block titleValue %}Select Bill by Client{% endblock %}
+
+{% block labelID %}billClientLabel{% endblock %}
+
+{% block inputID %}bill_client{% endblock %}
+
+{% block messageInputValue %}Insert bill client here{% endblock %}
+
+{% block submitButtonID %}send_bill_client{% endblock %}
+
+{% block helpContent %}If the result row is filled with "NULL", no bills match or the client's name is invalid.{% endblock %}
+
+{% block tableHead %}
+
+    <th scope="col">Bill ID</th>
+    <th scope="col">Buyer's name</th>
+    <th scope="col">Manufacturer</th>
+    <th scope="col">Model</th>
+    <th scope="col">Trim</th>
+    <th scope="col">Color</th>
+    <th scope="col">Year</th>
+    <th scope="col">Condition</th>
+    <th scope="col">Mileage</th>
+    <th scope="col">Weight</th>
+    <th scope="col">Price (CN $)</th>
+
+{% endblock %}
+
+
+{% block script %}
+    <script  src="{{ url_for('static', filename='BillsByClient.js') }}"></script>
+
+
+{% endblock %}

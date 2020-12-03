@@ -145,6 +145,54 @@ def CreateBill():
     else :
         return render_template('CreateBill.html')
 
+
+#Bills by client name view
+@app.route('/bill/billsbyclient', methods=['GET'])
+def BillsByClientView():
+    return render_template('BillsByClient.html')
+
+#Bills by client name request
+@app.route('/ajax/get_bills_by_client', methods=['GET'])
+def BillsByClientRequest():
+    bills=[]
+    bill_info = None
+    if request.method == 'GET':
+        requestBills = Bill.query.filter_by(clientName=request.values.get("bill_client")).all()
+
+        if requestBills:
+            for x in range(len(requestBills)):
+                requestCar = Car.query.filter_by(id=requestBills[x].carId).first()
+                bills.append({
+                    'billID': requestBills[x].id,
+                    'buyerName': requestBills[x].clientName,
+                    'maker':requestCar.maker,
+                    'model':requestCar.model,
+                    'cartrim':requestCar.trim,
+                    'mileage':requestCar.mileage,
+                    'caryear':requestCar.year,
+                    'carweight':requestCar.weight,
+                    'condition':requestCar.condition,
+                    'carcolor':requestCar.color,
+                    'price':requestCar.price
+                    })
+        else:
+            bills.append({
+                'billID': "NULL",
+                'buyerName': "NULL",
+                'maker': "NULL",
+                'model': "NULL",
+                'cartrim': "NULL",
+                'mileage': "NULL",
+                'caryear': "NULL",
+                'carweight': "NULL",
+                'condition': "NULL",
+                'carcolor': "NULL",
+                'price': "NULL"
+                })
+
+        bill_info = {'bill_info':bills}
+        return bill_info
+
 #Cars by maker view
 @app.route('/car/carsbymaker',methods=['GET'])
 def CarsByMakerView():
@@ -158,7 +206,7 @@ def CarsByMakerRequest():
     if request.method=='GET':
         requestCars=Car.query.filter_by(maker=request.values.get("car_maker"),sold=False).all()
 
-        if requestCars!=None:
+        if requestCars:
             for x in range(len(requestCars)):
                 cars.append({'maker': requestCars[x].maker,
                'model': requestCars[x].model,
